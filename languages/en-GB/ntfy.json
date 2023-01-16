@@ -4,5 +4,6 @@
 	"profile.regenerate": "Regenerate topic name",
 	"profile.test": "Send test notification",
 
-	"toast.regenerate_success": "Topic name regenerated"
+	"toast.regenerate_success": "Topic name regenerated",
+	"toast.test_success": "Test notification sent"
 }

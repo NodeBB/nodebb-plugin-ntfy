@@ -14,7 +14,8 @@ export async function init() {
 
 			switch (action) {
 				case 'test': {
-					console.log(await post('/plugins/ntfy/test'));
+					await post('/plugins/ntfy/test');
+					success('[[ntfy:test_success]]');
 					break;
 				}
 
