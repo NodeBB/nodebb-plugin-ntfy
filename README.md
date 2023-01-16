@@ -1,8 +1,6 @@
-# Ntfy Integration for NodeBB
+# Push Notifications for NodeBB (via ntfy)
 
 This plugin integrates NodeBB's notifications with [ntfy](https://ntfy.sh/), a simple HTTP-based [pub-sub](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) notification service.
-
-In short, this plugin is **push notifications for NodeBB**.
 
 ## How to use it
 
@@ -15,4 +13,4 @@ Activate this plugin from ACP > Extend > Plugins, and then rebuild & restart you
 
 1. [Download the ntfy app](https://docs.ntfy.sh/subscribe/phone/) (alternatively, [use the web interface](https://ntfy.sh/app)).
 1. Get your personal notification id via your profile. Protect this link — otherwise someone else can intercept and view your notifications as well.
-1. Paste the topic id and server name into the ntfy app or web app.
+1. Paste the topic name into the ntfy app or web app.
