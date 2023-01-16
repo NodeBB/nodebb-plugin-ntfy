@@ -69,15 +69,16 @@ plugin.onNotificationPush = async ({ notification, uidsNotified: uids }) => {
 	const topics = (await user.getUsersFields(uids, ['ntfyTopic'])).map(obj => obj.ntfyTopic).filter(Boolean);
 	let Title = utils.stripHTMLTags(await translator.translate(notification.bodyShort));
 	const Click = `${nconf.get('url')}${notification.path}`;
+	let body = utils.stripHTMLTags(notification.bodyLong);
 
 	// Handle empty bodyLong
 	if (!notification.bodyLong) {
-		notification.bodyLong = Title;
+		body = Title;
 		Title = meta.config.title || 'NodeBB';
 	}
 
 	await ntfy.send(topics, {
-		body: notification.bodyLong || '',
+		body,
 		headers: {
 			Title,
 			Click,
