@@ -1,14 +1,15 @@
 'use strict';
 
 const nconf = require.main.require('nconf');
-const winston = require.main.require('winston');
 
+const user = require.main.require('./src/user');
 const meta = require.main.require('./src/meta');
 const translator = require.main.require('./src/translator');
+const routeHelpers = require.main.require('./src/routes/helpers');
+const utils = require.main.require('./src/utils');
 
 const controllers = require('./lib/controllers');
-
-const routeHelpers = require.main.require('./src/routes/helpers');
+const ntfy = require('./lib/ntfy');
 
 const plugin = {};
 
@@ -26,7 +27,7 @@ plugin.init = async (params) => {
 	routeHelpers.setupAdminPageRoute(router, '/admin/plugins/ntfy', [], controllers.renderAdminPage);
 };
 
-plugin.addRoutes = async ({ router, middleware, helpers }) => {
+plugin.addRoutes = async ({ router, middleware }) => {
 	const middlewares = [
 		middleware.ensureLoggedIn,
 	];
@@ -62,6 +63,26 @@ plugin.addProfileItem = async (data) => {
 	});
 
 	return data;
+};
+
+plugin.onNotificationPush = async ({ notification, uidsNotified: uids }) => {
+	const topics = (await user.getUsersFields(uids, ['ntfyTopic'])).map(obj => obj.ntfyTopic).filter(Boolean);
+	let Title = utils.stripHTMLTags(await translator.translate(notification.bodyShort));
+	const Click = `${nconf.get('url')}${notification.path}`;
+
+	// Handle empty bodyLong
+	if (!notification.bodyLong) {
+		notification.bodyLong = Title;
+		Title = meta.config.title || 'NodeBB';
+	}
+
+	await ntfy.send(topics, {
+		body: notification.bodyLong || '',
+		headers: {
+			Title,
+			Click,
+		},
+	});
 };
 
 module.exports = plugin;

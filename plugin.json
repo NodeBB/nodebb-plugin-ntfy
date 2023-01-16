@@ -6,7 +6,8 @@
 		{ "hook": "static:app.load", "method": "init" },
 		{ "hook": "static:api.routes", "method": "addRoutes" },
 		{ "hook": "filter:admin.header.build", "method": "addAdminNavigation" },
-		{ "hook": "filter:user.profileMenu", "method": "addProfileItem" }
+		{ "hook": "filter:user.profileMenu", "method": "addProfileItem" },
+		{ "hook": "action:notification.pushed", "method": "onNotificationPush" }
 	],
 	"staticDirs": {
 		"static": "./static"
