@@ -1,0 +1,8 @@
+{
+	"plugin-name": "ntfy",
+	"profile.label": "Push Notifications",
+	"profile.regenerate": "Regenerate topic name",
+	"profile.test": "Send test notification",
+
+	"toast.regenerate_success": "Topic name regenerated"
+}

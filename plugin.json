@@ -1,0 +1,23 @@
+{
+	"id": "nodebb-plugin-ntfy",
+	"url": "https://github.com/NodeBB/nodebb-plugin-ntfy",
+	"library": "./library.js",
+	"hooks": [
+		{ "hook": "static:app.load", "method": "init" },
+		{ "hook": "static:api.routes", "method": "addRoutes" },
+		{ "hook": "filter:admin.header.build", "method": "addAdminNavigation" },
+		{ "hook": "filter:user.profileMenu", "method": "addProfileItem" }
+	],
+	"staticDirs": {
+		"static": "./static"
+	},
+	"scss": [
+		"static/scss/ntfy.scss"
+	],
+	"modules": {
+		"../client/account/ntfy.js": "./static/lib/modules/settings.js",
+		"../admin/plugins/ntfy.js": "./static/lib/admin.js"
+	},
+	"templates": "static/templates",
+	"languages": "languages"
+}

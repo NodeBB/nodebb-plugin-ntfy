@@ -1,0 +1,48 @@
+{
+  "name": "nodebb-plugin-ntfy",
+  "version": "0.4.3",
+  "description": "A starter kit for quickly creating NodeBB plugins",
+  "main": "library.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nodebb/nodebb-plugin-ntfy"
+  },
+  "keywords": [
+    "nodebb",
+    "plugin",
+    "ntfy",
+    "shell"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nodebb/nodebb-plugin-ntfy/issues"
+  },
+  "readmeFilename": "README.md",
+  "nbbpm": {
+    "compatibility": "^3.0.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "17.4.2",
+    "@commitlint/config-angular": "17.4.2",
+    "eslint": "8.31.0",
+    "eslint-config-nodebb": "0.2.1",
+    "eslint-plugin-import": "2.27.4",
+    "husky": "8.0.3",
+    "lint-staged": "13.1.0"
+  },
+  "dependencies": {
+    "node-fetch": "^2"
+  }
+}
