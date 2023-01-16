@@ -1,6 +1,7 @@
 {
 	"plugin-name": "ntfy",
 	"profile.label": "Push Notifications",
+	"profile.subscribe": "Subscribe",
 	"profile.regenerate": "Regenerate topic name",
 	"profile.test": "Send test notification",
 
