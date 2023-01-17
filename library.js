@@ -66,24 +66,35 @@ plugin.addProfileItem = async (data) => {
 };
 
 plugin.onNotificationPush = async ({ notification, uidsNotified: uids }) => {
-	const topics = (await user.getUsersFields(uids, ['ntfyTopic'])).map(obj => obj.ntfyTopic).filter(Boolean);
-	let Title = utils.stripHTMLTags(await translator.translate(notification.bodyShort));
-	const Click = `${nconf.get('url')}${notification.path}`;
-	let body = utils.stripHTMLTags(notification.bodyLong);
+	let topics = (await user.getUsersFields(uids, ['ntfyTopic'])).map(obj => obj.ntfyTopic);
+	uids = uids.filter((_, idx) => topics[idx]);
+	topics = topics.filter(Boolean);
+	const userSettings = await user.getMultipleUserSettings(uids);
 
-	// Handle empty bodyLong
-	if (!notification.bodyLong) {
-		body = Title;
-		Title = meta.config.title || 'NodeBB';
-	}
+	const payloads = await Promise.all(uids.map(async (uid, idx) => {
+		let [Title, body] = await translator.translateKeys(
+			[notification.bodyShort, notification.bodyLong],
+			userSettings[idx].userLang
+		);
+		([Title, body] = [Title, body].map(str => utils.stripHTMLTags(str)));
+		const Click = `${nconf.get('url')}${notification.path}`;
 
-	await ntfy.send(topics, {
-		body,
-		headers: {
-			Title,
-			Click,
-		},
-	});
+		// Handle empty bodyLong
+		if (!notification.bodyLong) {
+			body = Title;
+			Title = meta.config.title || 'NodeBB';
+		}
+
+		return {
+			body,
+			headers: {
+				Title,
+				Click,
+			},
+		};
+	}));
+
+	await Promise.all(topics.map(async (topic, idx) => ntfy.send(topic, payloads[idx])));
 };
 
 module.exports = plugin;
