@@ -6,5 +6,8 @@
 	"profile.test": "Send test notification",
 
 	"toast.regenerate_success": "Topic name regenerated",
-	"toast.test_success": "Test notification sent"
+	"toast.test_success": "Test notification sent",
+
+	"test.title": "Test Notification",
+	"test.body": "If you are receiving this, then that means push notifications are successfully set up on this device."
 }
