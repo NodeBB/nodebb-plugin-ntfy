@@ -19,6 +19,7 @@
 const assert = require('assert');
 const fetch = require('node-fetch');
 const EventSource = require('eventsource');
+const util = require('util');
 
 const db = require.main.require('./test/mocks/databasemock');
 const nconf = require.main.require('nconf');
@@ -103,13 +104,18 @@ describe('nodebb-plugin-ntfy', () => {
 				done();
 			};
 
-			ntfy.send(testTopic, testPayload);
+			setTimeout(() => {
+				ntfy.send(testTopic, testPayload);
+			}, 1000);
 		});
 
 		it('should send a single payload to multiple topics', (done) => {
-			const eventSource = new EventSource(`https://ntfy.sh/${testTopic}/sse`);
+			const secondTopic = `nodebb-ntfy-testrunner-${utils.generateUUID()}`;
+			const eventSource1 = new EventSource(`https://ntfy.sh/${testTopic}/sse`);
+			const eventSource2 = new EventSource(`https://ntfy.sh/${secondTopic}/sse`);
 			let count = 0;
-			eventSource.onmessage = ({ data }) => {
+
+			const onmessage = ({ data }) => {
 				data = JSON.parse(data);
 				assert.strictEqual(data.event, 'message');
 				assert.strictEqual(data.topic, testTopic);
@@ -119,10 +125,33 @@ describe('nodebb-plugin-ntfy', () => {
 
 				if (count === 2) {
 					done();
+					eventSource1.close();
+					eventSource2.close();
 				}
 			};
+			eventSource1.onmessage = onmessage;
+			eventSource2.onmessage = onmessage;
 
-			ntfy.send([testTopic, testTopic], testPayload);
+			setTimeout(() => {
+				ntfy.send([testTopic, testTopic], testPayload);
+			}, 1000);
+		});
+
+		it('should not crash if invalid characters are present in the passed-in headers', (done) => {
+			const eventSource = new EventSource(`https://ntfy.sh/${testTopic}/sse`);
+			eventSource.onmessage = ({ data }) => {
+				eventSource.close();
+				done();
+			};
+
+			setTimeout(async () => {
+				const payload = { ...testPayload, ...({ headers: { Title: '😉' } }) };
+				try {
+					await ntfy.send(testTopic, payload);
+				} catch (e) {
+					done(e);
+				}
+			}, 1000);
 		});
 	});
 });
