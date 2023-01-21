@@ -94,7 +94,11 @@ plugin.onNotificationPush = async ({ notification, uidsNotified: uids }) => {
 		};
 	}));
 
-	await Promise.all(topics.map(async (topic, idx) => ntfy.send(topic, payloads[idx])));
+	try {
+		await Promise.all(topics.map(async (topic, idx) => ntfy.send(topic, payloads[idx])));
+	} catch (err) {
+		console.error(err.stack);
+	}
 };
 
 module.exports = plugin;
