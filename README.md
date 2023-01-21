@@ -9,7 +9,7 @@ This plugin integrates NodeBB's notifications with [ntfy](https://ntfy.sh/), a s
 This plugin comes bundled with NodeBB as of v3.0.0.
 Activate this plugin from ACP > Extend > Plugins, and then rebuild & restart your NodeBB.
 
-## As an end user
+### As an end user
 
 1. [Download the ntfy app](https://docs.ntfy.sh/subscribe/phone/) (alternatively, [use the web interface](https://ntfy.sh/app)).
 1. Get your personal notification id via your profile. Protect this link — otherwise someone else can intercept and view your notifications as well.
