@@ -20,6 +20,7 @@ plugin.init = async (params) => {
 		middleware.ensureLoggedIn,
 		middleware.canViewUsers,
 		middleware.checkAccountPermissions,
+		middleware.buildAccountData,
 	];
 
 	routeHelpers.setupPageRoute(router, '/user/:userslug/ntfy', accountMiddlewares, controllers.renderSettings);
