@@ -14,3 +14,7 @@ Activate this plugin from ACP > Extend > Plugins, and then rebuild & restart you
 1. [Download the ntfy app](https://docs.ntfy.sh/subscribe/phone/) (alternatively, [use the web interface](https://ntfy.sh/app)).
 1. Get your personal notification id via your profile. Protect this link — otherwise someone else can intercept and view your notifications as well.
 1. Paste the topic name into the ntfy app or web app.
+
+## Using a service other than ntfy.sh
+
+This is currently not supported. Please open an issue if you are interested in sponsoring this work.
