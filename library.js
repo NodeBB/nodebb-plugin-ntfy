@@ -1,5 +1,7 @@
 'use strict';
 
+const validator = require('validator');
+
 const nconf = require.main.require('nconf');
 
 const user = require.main.require('./src/user');
@@ -77,7 +79,7 @@ plugin.onNotificationPush = async ({ notification, uidsNotified: uids }) => {
 			[notification.bodyShort, notification.bodyLong],
 			userSettings[idx].userLang
 		);
-		([Title, body] = [Title, body].map(str => utils.stripHTMLTags(str)));
+		([Title, body] = [Title, body].map(str => validator.unescape(utils.stripHTMLTags(str))));
 		const Click = `${nconf.get('url')}${notification.path}`;
 
 		// Handle empty bodyLong

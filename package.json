@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "eventsource": "^2.0.2",
-    "node-fetch": "^2"
+    "node-fetch": "^2",
+    "validator": "^13.7.0"
   }
 }
