@@ -1,0 +1,13 @@
+{
+	"plugin-name": "ntfy",
+	"profile.label": "הודעות דחיפה",
+	"profile.subscribe": "הירשם",
+	"profile.regenerate": "צור מחדש שם נושא",
+	"profile.test": "שלח הודעת בדיקה",
+
+	"toast.regenerate_success": "שם הנושא נוצר מחדש",
+	"toast.test_success": "הודעת בדיקה נשלחה",
+
+	"test.title": "הודעת בדיקה",
+	"test.body": "אם אתה מקבל את ההודעה הזאת, זה אומר שהודעות דחיפה מוגדרות בהצלחה במכשיר הזה."
+}
