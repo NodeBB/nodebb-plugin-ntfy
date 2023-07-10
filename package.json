@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-ntfy",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "A starter kit for quickly creating NodeBB plugins",
   "main": "library.js",
   "repository": {
