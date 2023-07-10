@@ -26,8 +26,6 @@ plugin.init = async (params) => {
 	];
 
 	routeHelpers.setupPageRoute(router, '/user/:userslug/ntfy', accountMiddlewares, controllers.renderSettings);
-
-	routeHelpers.setupAdminPageRoute(router, '/admin/plugins/ntfy', [], controllers.renderAdminPage);
 };
 
 plugin.addRoutes = async ({ router, middleware }) => {
@@ -37,16 +35,6 @@ plugin.addRoutes = async ({ router, middleware }) => {
 
 	routeHelpers.setupApiRoute(router, 'post', '/ntfy/regenerate', middlewares, controllers.regenerateTopic);
 	routeHelpers.setupApiRoute(router, 'post', '/ntfy/test', middlewares, controllers.sendTestNotification);
-};
-
-plugin.addAdminNavigation = (header) => {
-	header.plugins.push({
-		route: '/plugins/ntfy',
-		icon: 'fa-tint',
-		name: 'Push Notifications (ntfy)',
-	});
-
-	return header;
 };
 
 plugin.addProfileItem = async (data) => {
