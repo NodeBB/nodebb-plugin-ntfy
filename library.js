@@ -22,8 +22,18 @@ plugin.init = async (params) => {
 		middleware.ensureLoggedIn,
 		middleware.canViewUsers,
 		middleware.checkAccountPermissions,
-		middleware.buildAccountData,
 	];
+
+	// v2 compatibility
+	if (!nconf.get('version').startsWith('2')) {
+		accountMiddlewares.push(middleware.buildAccountData);
+	} else {
+		const accountHelpers = require.main.require('./src/controllers/accounts/helpers');
+		accountMiddlewares.push(async (req, res, next) => {
+			res.locals.templateValues = await accountHelpers.getUserDataByUserSlug(req.params.userslug, req.uid, req.query);
+			next();
+		});
+	}
 
 	routeHelpers.setupPageRoute(router, '/user/:userslug/ntfy', accountMiddlewares, controllers.renderSettings);
 };

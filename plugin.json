@@ -12,6 +12,9 @@
 	"staticDirs": {
 		"static": "./static"
 	},
+	"scripts": [
+		"static/lib/main.js"
+	],
 	"modules": {
 		"../client/account/ntfy.js": "./static/lib/modules/settings.js",
 		"../admin/plugins/ntfy.js": "./static/lib/admin.js"
