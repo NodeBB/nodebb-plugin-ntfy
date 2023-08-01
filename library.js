@@ -86,6 +86,11 @@ plugin.onNotificationPush = async ({ notification, uidsNotified: uids }) => {
 			Title = meta.config.title || 'NodeBB';
 		}
 
+		// Truncate body if needed
+		if (body.length > 256) {
+			body = `${body.slice(0, 256)}…`;
+		}
+
 		return {
 			body,
 			headers: {
