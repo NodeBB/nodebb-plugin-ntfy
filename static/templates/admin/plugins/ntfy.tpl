@@ -15,6 +15,17 @@
 							Due to a software limitation, if the message body is greater than 4096 bytes, the message itself will be an attachment in the push notification.
 						</p>
 					</div>
+
+					<div class="form-check form-switch">
+						<input type="checkbox" class="form-check-input" id="dropBodyLong" name="dropBodyLong">
+						<label for="dropBodyLong" class="form-check-label">Send <code>bodyShort</code> only</label>
+						<p class="form-text">
+							A NodeBB notification contains both <code>bodyShort</code> and <code>bodyLong</code>.
+							Typically <code>bodyLong</code> contains user-generated text (like post content, etc.),
+							whereas <code>bodyShort</code> would contain a system description or shorter user-generated content (like topic titles).
+							Enable this to only use <code>bodyShort</code> in the push notification.
+						</p>
+					</div>
 				</div>
 			</form>
 		</div>

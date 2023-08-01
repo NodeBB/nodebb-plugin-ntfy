@@ -79,8 +79,12 @@ plugin.addProfileItem = async (data) => {
 };
 
 plugin.onNotificationPush = async ({ notification, uidsNotified: uids }) => {
-	let { maxLength } = await meta.settings.get('ntfy');
+	let { maxLength, dropBodyLong } = await meta.settings.get('ntfy');
 	maxLength = parseInt(maxLength, 10) || 256;
+
+	if (dropBodyLong === 'on') {
+		delete notification.bodyLong;
+	}
 
 	let topics = (await user.getUsersFields(uids, ['ntfyTopic'])).map(obj => obj.ntfyTopic);
 	uids = uids.filter((_, idx) => topics[idx]);
