@@ -13,26 +13,22 @@
 		<img src="https://docs.ntfy.sh/static/img/badge-appstore.png">
 	</a>
 </p>
-<p>
-	A mobile device is not necessary, <a href="https://docs.ntfy.sh/subscribe/web/">you can also subscribe to push notifications via your browser.</a>
-</p>
+<p>[[ntfy:profile.no-mobile-needed]]</p>
 
 <hr />
 
 <div class="row">
 	<div class="col-sm-6">
-		<label for="topic">Your private push notification "topic name" is:</label>
+		<label for="topic">[[ntfy:profile.profile.topic-name]]</label>
 		<div class="input-group mb-3 mt-1">
 			<input id="topic" type="text" class="form-control" value="{ntfyTopic}" readonly />
 			<a class="btn btn-success" href="{ntfyUrl}">[[ntfy:profile.subscribe]]</a>
 		</div>
 		<!-- TODO: separate server url if specified in ACP -->
 		<p class="form-text">
-			<em>Treat this topic name like a password!</em>
+			<em>[[ntfy:profile.topic-secrecy]]</em>
 		</p>
-		<p class="form-text">
-			If the topic name is leaked, it can be used by others to receive your notifications.
-		</p>
+		<p class="form-text">[[ntfy:profile.topic-leakage]]</p>
 
 		<button class="btn btn-outline-primary" data-action="test">[[ntfy:profile.test]]</button>
 		<button class="btn btn-outline-danger" data-action="regenerate">[[ntfy:profile.regenerate]]</button>

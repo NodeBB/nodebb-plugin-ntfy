@@ -1,7 +1,11 @@
 {
 	"plugin-name": "ntfy",
 	"profile.label": "הודעות דחיפה",
+	"profile.no-mobile-needed": "A mobile device is not necessary, <a href=\"https://docs.ntfy.sh/subscribe/web/\">you can also subscribe to push notifications via your browser.</a>",
+	"profile.topic-name": "Your private push notification \"topic name\" is:",
 	"profile.subscribe": "הירשם",
+	"profile.topic-secrecy": "Treat this topic name like a password!",
+	"profile.topic-leakage": "If the topic name is leaked, it can be used by others to receive your notifications.",
 	"profile.regenerate": "צור מחדש שם נושא",
 	"profile.test": "שלח הודעת בדיקה",
 
