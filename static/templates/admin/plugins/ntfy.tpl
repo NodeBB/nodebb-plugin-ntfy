@@ -1,5 +1,7 @@
 <div class="acp-page-container">
+	{{{ if (version != "2") }}}
 	<!-- IMPORT admin/partials/settings/header.tpl -->
+	{{{ end }}}
 
 	<div class="row m-0">
 		<div id="spy-container" class="col-12 col-md-8 px-0 mb-4" tabindex="0">
@@ -30,7 +32,9 @@
 			</form>
 		</div>
 
+		{{{ if (version != "2") }}}
 		<!-- IMPORT admin/partials/settings/toc.tpl -->
+		{{{ end }}}
 	</div>
 </div>
 
