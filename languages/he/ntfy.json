@@ -1,15 +1,15 @@
 {
 	"plugin-name": "ntfy",
 	"profile.label": "הודעות דחיפה",
-	"profile.no-mobile-needed": "A mobile device is not necessary, <a href=\"https://docs.ntfy.sh/subscribe/web/\">you can also subscribe to push notifications via your browser.</a>",
-	"profile.topic-name": "Your private push notification \"topic name\" is:",
-	"profile.subscribe": "הירשם",
-	"profile.topic-secrecy": "Treat this topic name like a password!",
-	"profile.topic-leakage": "If the topic name is leaked, it can be used by others to receive your notifications.",
-	"profile.regenerate": "צור מחדש שם נושא",
+	"profile.no-mobile-needed": "אין צורך במכשיר נייד, <a href=\"https://docs.ntfy.sh/subscribe/web/\">אתה יכול להירשם להתראות דחיפה גם דרך הדפדפן במחשב שלך.</a>",
+	"profile.topic-name": "מזהה המכשיר הפרטי שלך הוא:",
+	"profile.subscribe": "הרשמה",
+	"profile.topic-secrecy": "התייחס למזהה המכשיר כמו אל סיסמה!",
+	"profile.topic-leakage": "אם מזהה המכשיר דולף, אחרים יוכלו להשתמש בו כדי לקבל את ההתראות שלך.",
+	"profile.regenerate": "צור מחדש מזהה מכשיר",
 	"profile.test": "שלח הודעת בדיקה",
 
-	"toast.regenerate_success": "שם הנושא נוצר מחדש",
+	"toast.regenerate_success": "מזהה המכשיר נוצר מחדש",
 	"toast.test_success": "הודעת בדיקה נשלחה",
 
 	"test.title": "הודעת בדיקה",
