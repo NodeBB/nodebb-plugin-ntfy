@@ -19,7 +19,7 @@
 
 <div class="row">
 	<div class="col-sm-6">
-		<label for="topic">[[ntfy:profile.profile.topic-name]]</label>
+		<label for="topic">[[ntfy:profile.topic-name]]</label>
 		<div class="input-group mb-3 mt-1">
 			<input id="topic" type="text" class="form-control" value="{ntfyTopic}" readonly />
 			<a class="btn btn-success" href="{ntfyUrl}">[[ntfy:profile.subscribe]]</a>
