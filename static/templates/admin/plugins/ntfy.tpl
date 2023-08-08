@@ -7,10 +7,26 @@
 		<div id="spy-container" class="col-12 col-md-8 px-0 mb-4" tabindex="0">
 			<form role="form" class="ntfy-settings">
 				<div class="mb-4">
-					<h5 class="fw-bold tracking-tight settings-header">General</h5>
+					<h5 class="fw-bold tracking-tight settings-header">Server</h5>
 
 					<div class="mb-3">
-						<label class="form-label" for="maxLength">Maximum message length</label>
+						<label class="form-label" for="hostname">Hostname <small>(optional)</small></label>
+						<div class="input-group">
+							<span class="input-group-text">https://</span>
+							<input type="text" id="hostname" name="hostname" title="Hostname" class="form-control" placeholder="ntfy.sh" />
+							<p class="form-text">
+								If you want to use an alternate ntfy.sh server, or maintain your own ntfy.sh server, you can specify its hostname here.
+								Otherwise, the default public ntfy.sh server will be used.
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="mb-4">
+					<h5 class="fw-bold tracking-tight settings-header">Message Settings</h5>
+
+					<div class="mb-3">
+						<label class="form-label" for="maxLength">Maximum length</label>
 						<input type="number" min="0" max="4096" id="maxLength" name="maxLength" title="Maximum message length" class="form-control" placeholder="256">
 						<p class="form-text">
 							Additional characters beyond this specified length will be truncated.
