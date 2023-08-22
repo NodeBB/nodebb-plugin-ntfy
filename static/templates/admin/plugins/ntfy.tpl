@@ -53,6 +53,15 @@
 							Enable this to only use <code>bodyShort</code> in the push notification.
 						</p>
 					</div>
+
+					<div class="mb-3">
+						<label class="form-label" for="icon">Icon URL</label>
+						<input type="text" id="icon" name="icon" title="Icon" class="form-control" placeholder="https://...">
+						<p class="form-text">
+							Optional — overrides the icon to messages sent (can be used for branding, etc.)
+							By default, the site's configured "touch icon" is sent.
+						</p>
+					</div>
 				</div>
 			</form>
 		</div>
