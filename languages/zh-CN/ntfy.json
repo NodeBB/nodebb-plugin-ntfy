@@ -1,0 +1,19 @@
+{
+	"plugin-name": "ntfy",
+	"profile.label": "推送通知",
+	"profile.no-mobile-needed": "移动设备不是必需的，<a href=\"https://docs.ntfy.sh/subscribe/web/\">您也可以在浏览器中订阅推送通知。</a>",
+	"profile.topic-name": "您的秘密推送\"主题名称\"是",
+	"profile.subscribe": "订阅",
+	"profile.topic-secrecy": "将这个主题名称当作密码一样对待！",
+	"profile.topic-leakage": "如果这个主题名称泄漏了，其他人可以用它来接收您的通知。",
+	"profile.regenerate": "重新生成主题名称",
+	"profile.test": "发送测试通知",
+
+	"toast.regenerate_success": "主题名称已重新生成",
+	"toast.test_success": "测试通知已发送",
+
+	"test.title": "测试通知",
+	"test.body": "如果您收到了这条消息，这意味着这台设备上成功配置了推送通知。",
+
+	"admin.title": "推送通知（ntfy）"
+}
