@@ -18,3 +18,12 @@ Activate this plugin from ACP > Extend > Plugins, and then rebuild & restart you
 ## Using a service other than ntfy.sh
 
 This is currently not supported. Please open an issue if you are interested in sponsoring this work.
+
+## v2.x support
+
+Basic functionality of this plugin is supported in NodeBB v2.x.
+More advanced functionality is hidden away and only available for v3.x and up.
+
+That would include (but is not limited to):
+
+* Notify/Email on tagged topic

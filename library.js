@@ -59,6 +59,30 @@ plugin.addAdminNavigation = (header) => {
 	return header;
 };
 
+plugin.getNotifyTags = async (returnMap) => {
+	let { notifyTags, notifyChannels } = await meta.settings.get('ntfy');
+	if (!notifyTags || !notifyChannels) {
+		return [];
+	}
+
+	if (!Array.isArray(notifyChannels)) {
+		notifyChannels = notifyChannels.split(',');
+	}
+	if (!Array.isArray(notifyTags)) {
+		notifyTags = notifyTags.split(',');
+	}
+
+	return returnMap ?
+		notifyTags.reduce((map, tag, idx) => {
+			map.set(tag, notifyChannels[idx]);
+			return map;
+		}, new Map()) :
+		notifyTags.map((tag, idx) => ({
+			tag,
+			channel: notifyChannels[idx],
+		}));
+};
+
 plugin.addProfileItem = async (data) => {
 	const title = await translator.translate('[[ntfy:profile.label]]');
 	data.links.push({
@@ -78,52 +102,84 @@ plugin.addProfileItem = async (data) => {
 	return data;
 };
 
-plugin.onNotificationPush = async ({ notification, uidsNotified: uids }) => {
+async function constructNtfyPayload({ bodyShort, bodyLong, path }, language) {
 	let { maxLength, dropBodyLong } = await meta.settings.get('ntfy');
 	maxLength = parseInt(maxLength, 10) || 256;
 
 	if (dropBodyLong === 'on') {
-		delete notification.bodyLong;
+		bodyLong = undefined;
 	}
 
+	if (!language) {
+		language = meta.config.defaultLang || 'en-GB';
+	}
+
+	let [Title, body] = await translator.translateKeys([bodyShort, bodyLong], language);
+	([Title, body] = [Title, body].map(str => validator.unescape(utils.stripHTMLTags(str))));
+	const Click = `${nconf.get('url')}${path}`;
+
+	// Handle empty bodyLong
+	if (!bodyLong) {
+		body = Title;
+		Title = meta.config.title || 'NodeBB';
+	}
+
+	// Truncate body if needed
+	if (body.length > maxLength) {
+		body = `${body.slice(0, maxLength)}…`;
+	}
+
+	return {
+		body,
+		headers: {
+			Title,
+			Click,
+		},
+	};
+}
+
+plugin.onNotificationPush = async ({ notification, uidsNotified: uids }) => {
 	let topics = (await user.getUsersFields(uids, ['ntfyTopic'])).map(obj => obj.ntfyTopic);
 	uids = uids.filter((_, idx) => topics[idx]);
 	topics = topics.filter(Boolean);
 	const userSettings = await user.getMultipleUserSettings(uids);
 
-	const payloads = await Promise.all(uids.map(async (uid, idx) => {
-		let [Title, body] = await translator.translateKeys(
-			[notification.bodyShort, notification.bodyLong],
-			userSettings[idx].userLang
-		);
-		([Title, body] = [Title, body].map(str => validator.unescape(utils.stripHTMLTags(str))));
-		const Click = `${nconf.get('url')}${notification.path}`;
-
-		// Handle empty bodyLong
-		if (!notification.bodyLong) {
-			body = Title;
-			Title = meta.config.title || 'NodeBB';
-		}
-
-		// Truncate body if needed
-		if (body.length > maxLength) {
-			body = `${body.slice(0, maxLength)}…`;
-		}
-
-		return {
-			body,
-			headers: {
-				Title,
-				Click,
-			},
-		};
-	}));
+	const payloads = await Promise.all(
+		uids.map(async (uid, idx) => constructNtfyPayload(notification, userSettings[idx].userLang))
+	);
 
 	try {
 		await Promise.all(topics.map(async (topic, idx) => ntfy.send(topic, payloads[idx])));
 	} catch (err) {
 		console.error(err.stack);
 	}
+};
+
+plugin.onTopicTag = async ({ topic, post }) => {
+	const notifyTags = await plugin.getNotifyTags(true);
+	if (!notifyTags || !notifyTags.size) {
+		return;
+	}
+
+	let { title, tags } = topic;
+	tags = tags.map(tag => tag.value);
+	if (title) {
+		title = utils.decodeHTMLEntities(title);
+		title = title.replace(/,/g, '\\,');
+	}
+
+	const topics = tags
+		.map(tag => notifyTags.get(tag))
+		.filter(Boolean)
+		.filter((tag, idx, source) => source.indexOf(tag) === idx);
+
+	const payload = await constructNtfyPayload({
+		bodyShort: `[[notifications:user_posted_topic, ${post.user.displayname}, ${title}]]`,
+		bodyLong: post.content,
+		path: `/post/${post.pid}`,
+	});
+
+	await Promise.all(topics.map(topic => ntfy.send(topic, payload)));
 };
 
 module.exports = plugin;

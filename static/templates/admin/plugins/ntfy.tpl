@@ -63,6 +63,31 @@
 						</p>
 					</div>
 				</div>
+
+				{{{ if (version != "2") }}}
+				<div class="mb-4">
+					<h5 class="fw-bold tracking-tight settings-header">Notify on tagged topic</h5>
+
+					<div class="mb-3">
+						<label class="form-label">
+							Send notifications to specific channels if a topic with a specific tag is created.
+						</label>
+						<fieldset id="notifyTags">
+							{{{ each notifyTags }}}
+							<!-- IMPORT partials/notifyTags-field.tpl -->
+							{{{ end }}}
+						</fieldset>
+
+						<button type="button" class="btn btn-primary" data-action="add">Add association</button>
+
+						<p class="form-text">
+							<strong>Note</strong> — notifications are only sent if either registered users or guests
+							are allowed to access the topic. Notifications will not be sent for topics hidden from
+							public/registered view in order to prevent unintentional leakage of private information.
+						</p>
+					</div>
+				</div>
+				{{{ end }}}
 			</form>
 		</div>
 
