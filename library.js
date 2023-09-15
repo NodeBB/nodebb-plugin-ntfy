@@ -60,26 +60,25 @@ plugin.addAdminNavigation = (header) => {
 };
 
 plugin.getNotifyTags = async (returnMap) => {
-	let { notifyTags, notifyChannels } = await meta.settings.get('ntfy');
+	let { notifyTags, notifyChannels, notifyEmails } = await meta.settings.get('ntfy');
 	if (!notifyTags || !notifyChannels) {
 		return [];
 	}
 
-	if (!Array.isArray(notifyChannels)) {
-		notifyChannels = notifyChannels.split(',');
-	}
-	if (!Array.isArray(notifyTags)) {
-		notifyTags = notifyTags.split(',');
-	}
+	[notifyChannels, notifyTags, notifyEmails] = [notifyChannels, notifyTags, notifyEmails].map(arr => (!Array.isArray(arr) ? arr.split(',') : arr));
 
 	return returnMap ?
 		notifyTags.reduce((map, tag, idx) => {
-			map.set(tag, notifyChannels[idx]);
+			map.set(tag, {
+				channel: notifyChannels[idx],
+				email: notifyEmails[idx],
+			});
 			return map;
 		}, new Map()) :
 		notifyTags.map((tag, idx) => ({
 			tag,
 			channel: notifyChannels[idx],
+			email: notifyEmails[idx],
 		}));
 };
 
@@ -102,7 +101,7 @@ plugin.addProfileItem = async (data) => {
 	return data;
 };
 
-async function constructNtfyPayload({ bodyShort, bodyLong, path }, language) {
+async function constructNtfyPayload({ bodyShort, bodyLong, path }, language, headers = {}) {
 	let { maxLength, dropBodyLong } = await meta.settings.get('ntfy');
 	maxLength = parseInt(maxLength, 10) || 256;
 
@@ -134,6 +133,7 @@ async function constructNtfyPayload({ bodyShort, bodyLong, path }, language) {
 		headers: {
 			Title,
 			Click,
+			...headers,
 		},
 	};
 }
@@ -169,14 +169,21 @@ plugin.onTopicTag = async ({ topic, post }) => {
 	}
 
 	const topics = tags
-		.map(tag => notifyTags.get(tag))
+		.map(tag => notifyTags.get(tag).channel)
 		.filter(Boolean)
 		.filter((tag, idx, source) => source.indexOf(tag) === idx);
+	const email = tags
+		.map(tag => notifyTags.get(tag).email)
+		.filter(Boolean)
+		.filter((tag, idx, source) => source.indexOf(tag) === idx)
+		.pop(); // only one email is supported per notification
 
 	const payload = await constructNtfyPayload({
 		bodyShort: `[[notifications:user_posted_topic, ${post.user.displayname}, ${title}]]`,
 		bodyLong: post.content,
 		path: `/post/${post.pid}`,
+	}, undefined, {
+		'X-Email': email,
 	});
 
 	await Promise.all(topics.map(topic => ntfy.send(topic, payload)));

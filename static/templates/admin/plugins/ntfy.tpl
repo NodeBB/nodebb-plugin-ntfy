@@ -69,9 +69,14 @@
 					<h5 class="fw-bold tracking-tight settings-header">Notify on tagged topic</h5>
 
 					<div class="mb-3">
-						<label class="form-label">
+						<p class="form-text">
 							Send notifications to specific channels if a topic with a specific tag is created.
-						</label>
+						</p>
+						<p class="form-text">
+							Optionally, provide an email address, which will be sent a copy of the notification.
+							Be aware that there are likely strict limits on emails sent out via ntfy.
+							Please <a href="https://docs.ntfy.sh/publish/#limitations">check with your ntfy host (or ntfy.sh) for more details</a>.
+						</p>
 						<fieldset id="notifyTags">
 							{{{ each notifyTags }}}
 							<!-- IMPORT partials/notifyTags-field.tpl -->

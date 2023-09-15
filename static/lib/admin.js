@@ -11,8 +11,8 @@ export async function init() {
 		// settings.load shoves all the values into the first association input, so
 		// the roles all start out disabled so that they don't get overridden
 		const fieldset = document.getElementById('notifyTags');
-		const domainEls = fieldset.querySelectorAll('input[disabled]');
-		domainEls.forEach((el) => {
+		const diabledEls = fieldset.querySelectorAll('input[disabled]');
+		diabledEls.forEach((el) => {
 			el.disabled = false;
 		});
 	});
