@@ -17,7 +17,8 @@ Activate this plugin from ACP > Extend > Plugins, and then rebuild & restart you
 
 ## Using a service other than ntfy.sh
 
-This is currently not supported. Please open an issue if you are interested in sponsoring this work.
+You are able to specify a different server if you use a third-party (or are self-hosting) ntfy.
+You can change the setting away from the default server in the ACP settings for this plugin.
 
 ## v2.x support
 
