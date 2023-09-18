@@ -40,6 +40,11 @@ function handleNotifyTags() {
 			groupNames: ajaxify.data.groupNames,
 		});
 		html = new DOMParser().parseFromString(html, 'text/html').body.childNodes;
+		html.forEach((el) => {
+			el.querySelectorAll('input[disabled]').forEach((el) => {
+				el.disabled = false;
+			});
+		});
 		fieldset.append(...html);
 	});
 
