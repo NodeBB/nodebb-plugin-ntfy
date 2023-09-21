@@ -169,14 +169,18 @@ plugin.onTopicTag = async ({ topic, post }) => {
 	}
 
 	const topics = tags
-		.map(tag => notifyTags.get(tag).channel)
+		.map(tag => notifyTags.get(tag))
 		.filter(Boolean)
 		.filter((tag, idx, source) => source.indexOf(tag) === idx);
-	const email = tags
-		.map(tag => notifyTags.get(tag).email)
+	const email = topics
+		.map(topic => topic.email)
 		.filter(Boolean)
 		.filter((tag, idx, source) => source.indexOf(tag) === idx)
 		.pop(); // only one email is supported per notification
+
+	if (!topics.length) {
+		return;
+	}
 
 	const payload = await constructNtfyPayload({
 		bodyShort: `[[notifications:user_posted_topic, ${post.user.displayname}, ${title}]]`,
@@ -186,7 +190,7 @@ plugin.onTopicTag = async ({ topic, post }) => {
 		'X-Email': email,
 	});
 
-	await Promise.all(topics.map(topic => ntfy.send(topic, payload)));
+	await Promise.all(topics.map(topic => ntfy.send(topic.channel, payload)));
 };
 
 module.exports = plugin;
