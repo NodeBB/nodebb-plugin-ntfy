@@ -183,7 +183,7 @@ plugin.onTopicTag = async ({ topic, post }) => {
 	}
 
 	const payload = await constructNtfyPayload({
-		bodyShort: `[[notifications:user_posted_topic, ${post.user.displayname}, ${title}]]`,
+		bodyShort: `[[notifications:user-posted-topic, ${post.user.displayname}, ${title}]]`,
 		bodyLong: post.content,
 		path: `/post/${post.pid}`,
 	}, undefined, {
