@@ -1,0 +1,19 @@
+{
+	"plugin-name": "ntfy",
+	"profile.label": "Powiadomienia push",
+	"profile.no-mobile-needed": "Smartfon czy tablet nie jest potrzebny. <a href=\"https://docs.ntfy.sh/subscribe/web/\">Wystarczy przeglądarka internetowa.</a>",
+	"profile.topic-name": "Osobisty \"specjalny temat\" to:",
+	"profile.subscribe": "Subskrybuj",
+	"profile.topic-secrecy": "Temat służy jako hasło!",
+	"profile.topic-leakage": "O ile ktoś przechwyci ten specjalny temat to będzie mógł odbierać powiadomienia szykowane dla Ciebie.",
+	"profile.regenerate": "Zmień temat",
+	"profile.test": "Wyślij próbne powiadomienie",
+
+	"toast.regenerate_success": "Temat został podmieniony",
+	"toast.test_success": "Wysłano próbne powiadomienie",
+
+	"test.title": "Próbne powiadomienie",
+	"test.body": "O ile to czytasz to znaczy, że wszystko działa jak należy.",
+
+	"admin.title": "Powiadomienia push (ntfy)"
+}
