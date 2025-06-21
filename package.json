@@ -38,7 +38,7 @@
     "@commitlint/config-angular": "19.8.1",
     "eslint": "9.29.0",
     "eslint-config-nodebb": "1.1.7",
-    "eslint-plugin-import": "2.31.0",
+    "eslint-plugin-import": "2.32.0",
     "husky": "9.1.7",
     "lint-staged": "16.1.2"
   },
