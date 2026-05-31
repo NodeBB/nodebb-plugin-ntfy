@@ -40,7 +40,7 @@
     "eslint-config-nodebb": "2.0.2",
     "eslint-plugin-import": "2.32.0",
     "husky": "9.1.7",
-    "lint-staged": "17.0.6"
+    "lint-staged": "17.0.7"
   },
   "dependencies": {
     "eventsource": "^2.0.2",
