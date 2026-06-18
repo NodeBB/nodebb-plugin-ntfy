@@ -3,7 +3,6 @@
 import { post } from 'api';
 import { success } from 'alerts';
 
-// eslint-disable-next-line import/prefer-default-export
 export async function init() {
 	const containerEl = document.querySelector('.account');
 

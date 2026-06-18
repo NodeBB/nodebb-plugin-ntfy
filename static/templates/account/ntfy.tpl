@@ -1,16 +1,15 @@
 <!-- IMPORT partials/account/header.tpl -->
 
 <h3 class="fw-semibold fs-5">[[ntfy:profile.label]]</h3>
-
 <p>
-	<a href="https://play.google.com/store/apps/details?id=io.heckel.ntfy">
-		<img src="https://docs.ntfy.sh/static/img/badge-googleplay.png">
+	<a class="text-decoration-none" href="https://play.google.com/store/apps/details?id=io.heckel.ntfy">
+		<img height="60" src="https://docs.ntfy.sh/static/img/badge-googleplay.png">
 	</a>
-	<a href="https://f-droid.org/en/packages/io.heckel.ntfy/">
-		<img src="https://docs.ntfy.sh/static/img/badge-fdroid.png">
+	<a class="text-decoration-none" href="https://f-droid.org/en/packages/io.heckel.ntfy/">
+		<img height="60" src="https://docs.ntfy.sh/static/img/badge-fdroid.png">
 	</a>
-	<a href="https://apps.apple.com/us/app/ntfy/id1625396347">
-		<img src="https://docs.ntfy.sh/static/img/badge-appstore.png">
+	<a class="text-decoration-none" href="https://apps.apple.com/us/app/ntfy/id1625396347">
+		<img height="60" src="https://docs.ntfy.sh/static/img/badge-appstore.png">
 	</a>
 </p>
 <p>[[ntfy:profile.no-mobile-needed]]</p>

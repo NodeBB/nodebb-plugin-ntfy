@@ -1,11 +1,8 @@
-/* eslint-disable import/no-unresolved */
-
 'use strict';
 
 import { save, load } from 'settings';
 import { render } from 'benchpress';
 
-// eslint-disable-next-line import/prefer-default-export
 export async function init() {
 	load('ntfy', $('.ntfy-settings'), () => {
 		// settings.load shoves all the values into the first association input, so

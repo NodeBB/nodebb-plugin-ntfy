@@ -21,10 +21,10 @@ const fetch = require('node-fetch');
 const EventSource = require('eventsource');
 const util = require('util');
 
-const db = require.main.require('./test/mocks/databasemock');
-const nconf = require.main.require('nconf');
-const user = require.main.require('./src/user');
-const utils = require.main.require('./src/utils');
+const db = nodebb.require('./test/mocks/databasemock');
+const nconf = nodebb.require('nconf');
+const user = nodebb.require('./src/user');
+const utils = nodebb.require('./src/utils');
 
 const ntfy = require('../lib/ntfy');
 

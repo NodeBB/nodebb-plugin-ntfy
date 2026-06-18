@@ -2,13 +2,13 @@
 
 const validator = require('validator');
 
-const nconf = require.main.require('nconf');
+const nconf = nodebb.require('nconf');
 
-const user = require.main.require('./src/user');
-const meta = require.main.require('./src/meta');
-const translator = require.main.require('./src/translator');
-const routeHelpers = require.main.require('./src/routes/helpers');
-const utils = require.main.require('./src/utils');
+const user = nodebb.require('./src/user');
+const meta = nodebb.require('./src/meta');
+const translator = nodebb.require('./src/translator');
+const routeHelpers = nodebb.require('./src/routes/helpers');
+const utils = nodebb.require('./src/utils');
 
 const controllers = require('./lib/controllers');
 const ntfy = require('./lib/ntfy');
@@ -28,7 +28,7 @@ plugin.init = async (params) => {
 	if (!nconf.get('version').startsWith('2')) {
 		accountMiddlewares.push(middleware.buildAccountData);
 	} else {
-		const accountHelpers = require.main.require('./src/controllers/accounts/helpers');
+		const accountHelpers = nodebb.require('./src/controllers/accounts/helpers');
 		accountMiddlewares.push(async (req, res, next) => {
 			res.locals.templateValues = await accountHelpers.getUserDataByUserSlug(req.params.userslug, req.uid, req.query);
 			next();
