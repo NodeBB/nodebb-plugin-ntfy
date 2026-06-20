@@ -45,7 +45,7 @@
     "lint-staged": "17.0.8"
   },
   "dependencies": {
-    "eventsource": "^2.0.2",
+    "eventsource": "^4.0.0",
     "node-fetch": "^2",
     "rfc2047": "^4.0.1",
     "validator": "^13.7.0"
