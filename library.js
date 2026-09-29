@@ -5,6 +5,7 @@ const validator = require('validator');
 const nconf = nodebb.require('nconf');
 
 const user = nodebb.require('./src/user');
+const topics = nodebb.require('./src/topics');
 const meta = nodebb.require('./src/meta');
 const translator = nodebb.require('./src/translator');
 const routeHelpers = nodebb.require('./src/routes/helpers');
@@ -161,36 +162,36 @@ plugin.onTopicTag = async ({ topic, post }) => {
 		return;
 	}
 
-	let { title, tags } = topic;
+	let { tags } = topic;
 	tags = tags.map(tag => tag.value);
-	if (title) {
-		title = utils.decodeHTMLEntities(title);
-		title = title.replace(/,/g, '\\,');
-	}
 
-	const topics = tags
+	const ntfyTopics = tags
 		.map(tag => notifyTags.get(tag))
 		.filter(Boolean)
 		.filter((tag, idx, source) => source.indexOf(tag) === idx);
-	const email = topics
+	const email = ntfyTopics
 		.map(topic => topic.email)
 		.filter(Boolean)
 		.filter((tag, idx, source) => source.indexOf(tag) === idx)
 		.pop(); // only one email is supported per notification
 
-	if (!topics.length) {
+	if (!ntfyTopics.length) {
 		return;
 	}
+	const [displayname, notificationTitle] = await Promise.all([
+		user.getNotificationDisplayname(post.user.uid),
+		topics.getNotificationTitle(topic.tid, 'title'),
+	]);
 
 	const payload = await constructNtfyPayload({
-		bodyShort: `[[notifications:user-posted-topic, ${post.user.displayname}, ${title}]]`,
+		bodyShort: `[[notifications:user-posted-topic, ${displayname}, ${notificationTitle}]]`,
 		bodyLong: post.content,
 		path: `/post/${post.pid}`,
 	}, undefined, {
 		'X-Email': email,
 	});
 
-	await Promise.all(topics.map(topic => ntfy.send(topic.channel, payload)));
+	await Promise.all(ntfyTopics.map(topic => ntfy.send(topic.channel, payload)));
 };
 
 module.exports = plugin;
