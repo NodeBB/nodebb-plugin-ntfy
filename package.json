@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-ntfy",
-  "version": "1.7.8",
+  "version": "1.7.9",
   "description": "This plugin integrates NodeBB's notifications with ntfy, a simple HTTP-based pub-sub notification service.",
   "main": "library.js",
   "repository": {
